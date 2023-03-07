@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "421825860500",
+    "project_id": "fielder-63ee1",
+    "storage_bucket": "fielder-63ee1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:421825860500:android:42a2a2204a89bd646c3581",
+        "android_client_info": {
+          "package_name": "com.example.filder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "421825860500-uvkcnvnvomg5c9mk1cbhp8g1i9ti15e2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJ6SHtXz5qeSrS4KPdLqIDxSIYXfipeVU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "421825860500-uvkcnvnvomg5c9mk1cbhp8g1i9ti15e2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

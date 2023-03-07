@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/white"
+    tools:context=".welcome"
+    >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:background="@drawable/back"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/logo_container"
+                android:layout_width="400dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="75dp"
+                android:src="@drawable/logo2"
+                />
+        </FrameLayout>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome"
+                android:textStyle="bold"
+                android:textSize="50dp"
+                android:textColor="#068152"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="45dp" />
+
+        <TextView
+                android:layout_width="380dp"
+                android:layout_height="wrap_content"
+                android:text="Our application is your one-stop solution to manage your multiple fields"
+                android:gravity="center_horizontal"
+                android:textSize="15dp" />
+
+         <Button
+            android:id="@+id/button_start"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/cursor_color"
+            android:text="Get Started"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            android:padding="15dp"
+            android:textStyle="bold"
+             android:drawableRight="@drawable/arrow"
+             ></Button>
+
+</LinearLayout>
