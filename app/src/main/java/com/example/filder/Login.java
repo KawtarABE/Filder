@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -59,11 +60,12 @@ public class Login extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            //startActivity(intent);
-            //finish();
+        SharedPreferences prefs = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE);
+        boolean isLoggedIn = prefs.getBoolean("isUserLoggedIn", false);
+        if (isLoggedIn) {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 
@@ -88,8 +90,6 @@ public class Login extends AppCompatActivity {
         button_login = findViewById(R.id.button_login);
         user_type = findViewById(R.id.user_type);
         progressBar=findViewById(R.id.progress_bar);
-
-
 
 
 
@@ -127,6 +127,10 @@ public class Login extends AppCompatActivity {
                                 if(getPassword.equals(password)) {
                                     Toast.makeText(Login.this, "Sign in successful",
                                             Toast.LENGTH_SHORT).show();
+                                    SharedPreferences.Editor editor = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE).edit();
+                                    editor.putBoolean("isUserLoggedIn", true);
+                                    editor.putString("user",email);
+                                    editor.apply();
                                     if(userType.equals("Manager")) {
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                         startActivity(intent);
@@ -134,6 +138,7 @@ public class Login extends AppCompatActivity {
                                     }
                                     else {
                                         Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
+                                        intent.putExtra("user", email);
                                         startActivity(intent);
                                         finish();
                                     }

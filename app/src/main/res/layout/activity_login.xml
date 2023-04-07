@@ -338,7 +338,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="26dp"
                 android:background="@drawable/cursor_color"
-                android:text="LogUp"
+                android:text="Register"
                 android:layout_centerVertical="true"
                 android:textAlignment="center"
                 android:textColor="#fff"
