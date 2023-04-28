@@ -29,7 +29,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 public class AddField extends AppCompatActivity {
@@ -85,6 +87,10 @@ public class AddField extends AppCompatActivity {
     }
     private void addField() {
         String surface_1, location_1, owner_1, number_1;
+        List<String> history_temp, history_hum, history_uv;
+        history_temp = new ArrayList<>();
+        history_hum = new ArrayList<>();
+        history_uv = new ArrayList<>();
 
         surface_1 = String.valueOf(surface.getText());
         location_1 = String.valueOf(location.getText());
@@ -102,6 +108,9 @@ public class AddField extends AppCompatActivity {
         hashmap.put("UV","");
         hashmap.put("Humidity","");
         hashmap.put("manager",""+email);
+        hashmap.put("history_temp",""+history_temp);
+        hashmap.put("history_hum",""+history_hum);
+        hashmap.put("history_uv",""+history_uv);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Fields");
         ref.child(""+id).setValue(hashmap).addOnSuccessListener(new OnSuccessListener<Void>() {
