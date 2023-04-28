@@ -107,9 +107,9 @@ public class All_fields extends AppCompatActivity {
                         finish();
                         break;
                     case R.id.nav_alertes:
-                        //Intent intent_3 = new Intent(getApplicationContext(), Alerts.class);
-                        //startActivity(intent_3);
-                        //finish();
+                        Intent intent_3 = new Intent(getApplicationContext(), AllAlerts.class);
+                        startActivity(intent_3);
+                        finish();
                         break;
                     case R.id.nav_electrovanne:
                         //Intent intent_4 = new Intent(getApplicationContext(), Electrovanne.class);

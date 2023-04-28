@@ -62,8 +62,9 @@ public class Login extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         SharedPreferences prefs = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE);
         boolean isLoggedIn = prefs.getBoolean("isUserLoggedIn", false);
-        String userType = prefs.getString("type", null);
+        String userType = prefs.getString("type", "Manager");
         if (isLoggedIn) {
+            Toast.makeText(this, "There is an user connected", Toast.LENGTH_SHORT).show();
             if(userType.equals("Manager")) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
