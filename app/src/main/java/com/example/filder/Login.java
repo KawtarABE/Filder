@@ -62,10 +62,18 @@ public class Login extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         SharedPreferences prefs = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE);
         boolean isLoggedIn = prefs.getBoolean("isUserLoggedIn", false);
+        String userType = prefs.getString("type", null);
         if (isLoggedIn) {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
+            if(userType.equals("Manager")) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            if(userType.equals("Worker")) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
+                startActivity(intent);
+                finish();
+            }
         }
     }
 
@@ -130,6 +138,7 @@ public class Login extends AppCompatActivity {
                                     SharedPreferences.Editor editor = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE).edit();
                                     editor.putBoolean("isUserLoggedIn", true);
                                     editor.putString("user",email);
+                                    editor.putString("type",userType);
                                     editor.apply();
                                     if(userType.equals("Manager")) {
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);

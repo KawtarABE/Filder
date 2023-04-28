@@ -36,7 +36,6 @@ public class All_fields extends AppCompatActivity {
     private Button button_add;
     private ArrayList<ModelField> fieldsArrayList;
     private AdapterField adapterField;
-
     private SearchView search;
 
     @Override
@@ -49,7 +48,6 @@ public class All_fields extends AppCompatActivity {
 
         menu = findViewById(R.id.menu_button);
         main_page = findViewById(R.id.main_page);
-
 
         search = findViewById(R.id.search);
 
@@ -104,9 +102,9 @@ public class All_fields extends AppCompatActivity {
                         break;
 
                     case R.id.nav_workers:
-                        //Intent intent_2 = new Intent(getApplicationContext(), All_workers.class);
-                        //startActivity(intent_2);
-                        //finish();
+                        Intent intent_2 = new Intent(getApplicationContext(), Allworkers.class);
+                        startActivity(intent_2);
+                        finish();
                         break;
                     case R.id.nav_alertes:
                         //Intent intent_3 = new Intent(getApplicationContext(), Alerts.class);

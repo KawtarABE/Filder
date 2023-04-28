@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_logout:
                         SharedPreferences.Editor editor = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE).edit();
                         editor.putBoolean("isUserLoggedIn", false);
+                        editor.putString("email",null);
+                        editor.putString("type",null);
                         editor.apply();
                         Intent intent = new Intent(getApplicationContext(), Login.class);
                         startActivity(intent);
@@ -70,9 +72,9 @@ public class MainActivity extends AppCompatActivity {
                         finish();
                         break;
                     case R.id.nav_workers:
-                        //Intent intent_2 = new Intent(getApplicationContext(), All_workers.class);
-                        //startActivity(intent_2);
-                        //finish();
+                        Intent intent_2 = new Intent(getApplicationContext(), Allworkers.class);
+                        startActivity(intent_2);
+                        finish();
                         break;
                     case R.id.nav_alertes:
                         //Intent intent_3 = new Intent(getApplicationContext(), Alerts.class);

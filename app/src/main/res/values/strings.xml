@@ -2,7 +2,7 @@
     <string name="app_name">Fielder 2.0</string>
     <string-array name="items">
         <item>Manager</item>
-        <item>Worker</item>
+        <!-- <item>Worker</item> -->
     </string-array>
 
 </resources>
