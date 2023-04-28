@@ -144,6 +144,9 @@ public class AddAlert extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(AddAlert.this,"Field successfully added...", Toast.LENGTH_SHORT).show();
+                        Intent intent_3 = new Intent(getApplicationContext(), AllAlerts.class);
+                        startActivity(intent_3);
+                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
