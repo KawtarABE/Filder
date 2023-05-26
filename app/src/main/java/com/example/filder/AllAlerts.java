@@ -54,6 +54,7 @@ public class AllAlerts extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE);
         email = prefs.getString("user","");
+        binding.subtitle.setText(email);
 
         loadAlerts();
 
@@ -98,6 +99,9 @@ public class AllAlerts extends AppCompatActivity {
                         break;
 
                     case R.id.nav_fields:
+                        Intent intent_7 = new Intent(getApplicationContext(), All_fields.class);
+                        startActivity(intent_7);
+                        finish();
                         break;
 
                     case R.id.nav_workers:
@@ -106,14 +110,16 @@ public class AllAlerts extends AppCompatActivity {
                         finish();
                         break;
                     case R.id.nav_alertes:
-                        Intent intent_3 = new Intent(getApplicationContext(), AllAlerts.class);
-                        startActivity(intent_3);
+                        break;
+                    case R.id.received_alertes:
+                        Intent intent_8 = new Intent(getApplicationContext(), Received_alerts.class);
+                        startActivity(intent_8);
                         finish();
                         break;
                     case R.id.nav_electrovanne:
-                        //Intent intent_4 = new Intent(getApplicationContext(), Electrovanne.class);
-                        //startActivity(intent_4);
-                        //finish();
+                        Intent intent_4 = new Intent(getApplicationContext(), Electrovanne.class);
+                        startActivity(intent_4);
+                        finish();
                         break;
                 }
 
@@ -151,7 +157,8 @@ public class AllAlerts extends AppCompatActivity {
     private void loadAlerts() {
         alertsArrayList = new ArrayList<>();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Alerts");
-        ref.addValueEventListener(new ValueEventListener() {
+        Query query = ref.orderByChild("sender").equalTo(email);
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 alertsArrayList.clear();

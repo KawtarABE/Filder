@@ -53,6 +53,9 @@ public class AddAlert extends AppCompatActivity {
         binding = ActivityAddAlertBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        SharedPreferences prefs = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE);
+        email = prefs.getString("user","");
+        binding.subtitle.setText(email);
 
         back = findViewById(R.id.retour);
         button_add = findViewById(R.id.button1);
@@ -64,7 +67,7 @@ public class AddAlert extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), All_fields.class);
+                Intent intent = new Intent(getApplicationContext(), AllAlerts.class);
                 startActivity(intent);
                 finish();
             }
@@ -94,9 +97,7 @@ public class AddAlert extends AppCompatActivity {
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(),
                         android.R.layout.simple_spinner_item, fieldNumbers);
-
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
                 spinner.setAdapter(adapter);
             }
 
@@ -107,12 +108,6 @@ public class AddAlert extends AppCompatActivity {
         });
 
         field = findViewById(R.id.field);
-
-        SharedPreferences prefs = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE);
-        email = prefs.getString("user", "");
-        binding.subtitle.setText(email);
-
-
     }
     private void addAlert() {
         String context_1, text_1, field_1;
@@ -132,11 +127,10 @@ public class AddAlert extends AppCompatActivity {
         hashmap.put("id",""+id);
         hashmap.put("context",""+context_1);
         hashmap.put("text",""+text_1);
-        hashmap.put("sender","couthonmallory@gmail.com");
+        hashmap.put("sender",email);
         hashmap.put("field",""+field_1);
         hashmap.put("date",formattedDate);
         hashmap.put("open",false);
-
 
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Alerts");

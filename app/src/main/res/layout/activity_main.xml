@@ -66,12 +66,53 @@
                 />
 
         </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar"
+            android:orientation="vertical">
 
-    <!--put code here-->
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/addTitle"
+            android:layout_below="@id/toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20sp"
+            android:layout_centerHorizontal="true"
+            android:textColor="#068152"
+            android:text="Data Overview"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/avocado"
+            android:textSize="35sp" />
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:background="@drawable/rounded_corner"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/addTitle"
+            android:stretchColumns="*"
+            android:verticalSpacing="100dp"
+            />
+
+
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/line_chart"
+            android:layout_below="@id/tableLayout"
+            android:background="@drawable/rounded_corner"
+            android:layout_width="380dp"
+            android:layout_centerHorizontal="true"
+            android:layout_height="400dp"
+            android:layout_marginTop="30dp"/>
 
     </RelativeLayout>
 
-  <com.google.android.material.navigation.NavigationView
+    <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/menu"

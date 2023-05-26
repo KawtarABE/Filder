@@ -1,51 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/dashboard"
-            android:title="Dashbord"
-            />
+        <item android:title="Management">
+            <menu>
+                <item
+                    android:id="@+id/nav_home"
+                    android:icon="@drawable/dashboard"
+                    android:title="Dashbord"
+                    />
 
-        <item
-            android:id="@+id/nav_fields"
-            android:icon="@drawable/field"
-            android:title="Fields"
-            />
+                <item
+                    android:id="@+id/nav_fields"
+                    android:icon="@drawable/field"
+                    android:title="Fields"
+                    />
 
-        <item
-            android:id="@+id/nav_workers"
-            android:icon="@drawable/worker"
-            android:title="Workers"
-            />
+                <item
+                    android:id="@+id/nav_workers"
+                    android:icon="@drawable/worker"
+                    android:title="Workers"
+                    />
 
-        <item
-            android:id="@+id/nav_alertes"
-            android:icon="@drawable/alert"
-            android:title="Alerts"
-            />
+                <item
+                    android:id="@+id/nav_electrovanne"
+                    android:icon="@drawable/electrovane"
+                    android:title="Solenoid valve"
+                    />
+            </menu>
+        </item>
 
-        <item
-            android:id="@+id/nav_electrovanne"
-            android:icon="@drawable/electrovane"
-            android:title="Solenoid valve"
-            />
+       <item
+            android:title="Alerts">
+
+           <menu>
+               <item
+                   android:id="@+id/nav_alertes"
+                   android:icon="@drawable/alert"
+                   android:title="Sent"/>
+
+               <item
+                   android:id="@+id/received_alertes"
+                   android:icon="@drawable/alerts_rec"
+                   android:title="Received"
+                   ></item>
+
+           </menu>
+
+
+       </item>
 
     </group>
 
     <item
-        android:title="">
-
+        android:title="LogOut">
         <menu>
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/logout"
                 android:title="LogOut"/>
         </menu>
-
     </item>
 
 

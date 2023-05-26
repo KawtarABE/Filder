@@ -138,7 +138,7 @@ public class detail_field extends AppCompatActivity {
         email = prefs.getString("user","");
         binding.subtitle.setText(email);
 
-        menu.setOnClickListener(new View.OnClickListener() {
+        /*menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 main_page.openDrawer(GravityCompat.START);
@@ -191,7 +191,7 @@ public class detail_field extends AppCompatActivity {
 
                 return true;
             }
-        });
+        });*/
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

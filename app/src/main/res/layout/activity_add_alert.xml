@@ -56,6 +56,15 @@
             android:orientation="vertical"
             android:padding="30dp">
 
+            <TextView
+                android:id="@+id/addTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#068152"
+                android:text="Add Alert"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/avocado"
+                android:textSize="35sp" />
 
 
             <RelativeLayout
@@ -64,7 +73,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="50dp"
                 android:orientation="vertical">
 
                 <EditText
@@ -93,7 +102,7 @@
                     android:layout_height="20dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="14dp"
-                    android:src="@drawable/form_alert_context" />
+                    android:src="@drawable/alert" />
 
                 <EditText
                     android:id="@+id/alert_text"
@@ -101,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/alert_context"
                     android:layout_marginTop="16dp"
-                    android:layout_marginBottom="24dp"
+                    android:layout_marginBottom="32dp"
                     android:background="@drawable/cursor"
                     android:hint="Message"
                     android:inputType="text"
@@ -124,7 +133,7 @@
                     android:layout_below="@+id/alert_context"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="30dp"
-                    android:src="@drawable/form_alert_text" />
+                    android:src="@drawable/edit" />
 
                 <Spinner
                     android:id="@+id/field"
@@ -139,7 +148,7 @@
                     android:padding="15dp"
                     android:paddingStart="50dp"
                     android:paddingLeft="17dp"
-                    android:paddingTop="15dp"
+                    android:paddingTop="20dp"
                     android:paddingBottom="40dp"
                     android:textColor="#333"
                     android:textColorHint="#9E9E9E"
@@ -152,7 +161,7 @@
                     android:layout_height="20dp"
                     android:layout_below="@+id/alert_text"
                     android:layout_marginLeft="12dp"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="14dp"
                     android:src="@drawable/field" />
 
             </RelativeLayout>

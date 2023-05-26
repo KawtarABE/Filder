@@ -111,6 +111,7 @@ public class AddField extends AppCompatActivity {
         hashmap.put("history_temp",""+history_temp);
         hashmap.put("history_hum",""+history_hum);
         hashmap.put("history_uv",""+history_uv);
+        //hashmap.put("electrovanne",0);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Fields");
         ref.child(""+id).setValue(hashmap).addOnSuccessListener(new OnSuccessListener<Void>() {

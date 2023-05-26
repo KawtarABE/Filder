@@ -17,7 +17,7 @@
     <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/notif_close"
+        android:src="@drawable/bell"
         />
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
@@ -35,12 +35,33 @@
             android:textSize="20dp"
             android:textStyle="bold" />
         <TextView
+            android:id="@+id/alert_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Field N°: "
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            />
+        <TextView
             android:id="@+id/alert_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Contenu du Message"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:id="@+id/alert_sender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="abc@gmail.com"
             android:layout_marginTop="12dp"
             android:layout_marginLeft="20dp"
+            android:textSize="12dp"
             />
         <TextView
             android:id="@+id/alert_date"
