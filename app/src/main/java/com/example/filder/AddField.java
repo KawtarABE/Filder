@@ -104,14 +104,14 @@ public class AddField extends AppCompatActivity {
         hashmap.put("location",""+location_1);
         hashmap.put("owner",""+owner_1);
         hashmap.put("numero",""+number_1);
-        hashmap.put("Temperature","");
-        hashmap.put("UV","");
-        hashmap.put("Humidity","");
+        hashmap.put("Temperature","0");
+        hashmap.put("UV","0");
+        hashmap.put("Humidity","0");
         hashmap.put("manager",""+email);
         hashmap.put("history_temp",""+history_temp);
         hashmap.put("history_hum",""+history_hum);
         hashmap.put("history_uv",""+history_uv);
-        //hashmap.put("electrovanne",0);
+        hashmap.put("electrovanne",0);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Fields");
         ref.child(""+id).setValue(hashmap).addOnSuccessListener(new OnSuccessListener<Void>() {

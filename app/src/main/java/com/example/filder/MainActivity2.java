@@ -52,6 +52,13 @@ public class MainActivity2 extends AppCompatActivity {
     private String field;
     private String manager_value;
     private String email_path;
+    private String owner_value;
+    private String surface_value;
+    private String location_value;
+    private String temperature_value;
+    private String humidity_value;
+    private String uv_value;
+    private int electrovanne_value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +88,7 @@ public class MainActivity2 extends AppCompatActivity {
         electrovanne = findViewById(R.id.electrovanne);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(email_path);
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -103,6 +110,101 @@ public class MainActivity2 extends AppCompatActivity {
                         builder1.append(boldText1);
                         manager.setText(builder1);
 
+                        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Fields");
+                        Query query1 = ref1.orderByChild("numero").equalTo(field);
+                        query1.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                                        owner_value = childSnapshot.child("owner").getValue(String.class);
+                                        location_value = childSnapshot.child("location").getValue(String.class);
+                                        surface_value = childSnapshot.child("surface").getValue(String.class);
+                                        temperature_value = childSnapshot.child("Temperature").getValue(String.class);
+                                        humidity_value = childSnapshot.child("Humidity").getValue(String.class);
+                                        uv_value = childSnapshot.child("UV").getValue(String.class);
+                                        electrovanne_value = childSnapshot.child("electrovanne").getValue(Integer.class);
+
+                                        if (owner_value != null) {
+                                            // Update the UI with the retrieved values
+                                            SpannableStringBuilder builder0 = new SpannableStringBuilder();
+                                            builder0.append("Owner of Field: ");
+                                            SpannableString boldText0 = new SpannableString(owner_value);
+                                            boldText0.setSpan(new StyleSpan(Typeface.BOLD), 0, owner_value.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                            builder0.append(boldText0);
+                                            owner.setText(builder0);
+
+                                            SpannableStringBuilder builder1 = new SpannableStringBuilder();
+                                            builder1.append("Surface of the field: ");
+                                            SpannableString boldText1 = new SpannableString(surface_value);
+                                            boldText1.setSpan(new StyleSpan(Typeface.BOLD), 0, surface_value.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                            builder1.append(boldText1);
+                                            surface.setText(builder1);
+
+                                            SpannableStringBuilder builder2 = new SpannableStringBuilder();
+                                            builder2.append("Location of the field: ");
+                                            SpannableString boldText2 = new SpannableString(location_value);
+                                            boldText2.setSpan(new StyleSpan(Typeface.BOLD), 0, location_value.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                            builder2.append(boldText2);
+                                            location.setText(builder2);
+
+                                            SpannableStringBuilder builder3 = new SpannableStringBuilder();
+                                            builder3.append("Actual Temperature: ");
+                                            SpannableString boldText3 = new SpannableString(temperature_value);
+                                            boldText3.setSpan(new StyleSpan(Typeface.BOLD), 0, temperature_value.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                            builder3.append(boldText3);
+                                            builder3.append(" C°");
+                                            temperature.setText(builder3);
+
+                                            SpannableStringBuilder builder4 = new SpannableStringBuilder();
+                                            builder4.append("Actual Humidity: ");
+                                            SpannableString boldText4 = new SpannableString(humidity_value);
+                                            boldText4.setSpan(new StyleSpan(Typeface.BOLD), 0, humidity_value.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                            builder4.append(boldText4);
+                                            builder4.append(" F");
+                                            humidity.setText(builder4);
+
+                                            SpannableStringBuilder builder5 = new SpannableStringBuilder();
+                                            builder5.append("Water Level: ");
+                                            SpannableString boldText5 = new SpannableString(uv_value);
+                                            boldText5.setSpan(new StyleSpan(Typeface.BOLD), 0, uv_value.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                            builder5.append(boldText5);
+                                            builder5.append(" cm");
+                                            uv.setText(builder5);
+
+                                            SpannableStringBuilder builder6 = new SpannableStringBuilder();
+                                            builder6.append("Electrovanne State: ");
+                                            if(electrovanne_value == 0) {
+                                                SpannableString boldText6 = new SpannableString("Turned Off");
+                                                boldText6.setSpan(new StyleSpan(Typeface.BOLD), 0, "Turned Off".length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                                builder6.append(boldText6);
+                                                electrovanne.setText(builder6);
+                                            } else {
+                                                SpannableString boldText6 = new SpannableString("Turned On");
+                                                boldText6.setSpan(new StyleSpan(Typeface.BOLD), 0, "Turned On".length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                                builder6.append(boldText6);
+                                                electrovanne.setText(builder6);
+                                            }
+
+
+                                            // Update other UI elements with the retrieved values
+
+                                        } else {
+                                            Log.d(TAG, "Field value is null");
+                                        }
+                                    }
+                                } else {
+                                    Log.d(TAG, "User not found");
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                Log.e(TAG, "onCancelled", databaseError.toException());
+                            }
+                        });
+
+
                     } else {
                         Log.d(TAG, "Field value is null");
                     }
@@ -116,11 +218,6 @@ public class MainActivity2 extends AppCompatActivity {
                 Log.e(TAG, "Error retrieving data: " + databaseError.getMessage());
             }
         });
-
-        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Fields");
-        Query query1 = ref1.orderByChild("numero").equalTo(field);
-        query1.addListenerForSingleValueEvent();
-
 
 
         menu.setOnClickListener(new View.OnClickListener() {
@@ -150,20 +247,20 @@ public class MainActivity2 extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                         break;
-                    case R.id.nav_workers:
-                        //Intent intent_2 = new Intent(getApplicationContext(), Profil.class);
-                        //startActivity(intent_2);
-                        //finish();
+                    case R.id.nav_worker:
+                        Intent intent_2 = new Intent(getApplicationContext(), Profil.class);
+                        startActivity(intent_2);
+                        finish();
                         break;
                     case R.id.nav_alertes:
-                       // Intent intent_3 = new Intent(getApplicationContext(), AllAlerts_worker.class);
-                       // startActivity(intent_3);
-                        //finish();
-                        break;
+                       Intent intent_3 = new Intent(getApplicationContext(), AllAlerts_worker.class);
+                       startActivity(intent_3);
+                       finish();
+                       break;
                     case R.id.received_alertes:
-                        //Intent intent_7 = new Intent(getApplicationContext(), Received_alerts_worker.class);
-                        //startActivity(intent_7);
-                        //finish();
+                        Intent intent_7 = new Intent(getApplicationContext(), Received_alerts_worker.class);
+                        startActivity(intent_7);
+                        finish();
                         break;
                 }
 

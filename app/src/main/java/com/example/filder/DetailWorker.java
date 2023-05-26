@@ -1,5 +1,7 @@
 package com.example.filder;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,8 +22,11 @@ import com.example.filder.databinding.ActivityAllFieldsBinding;
 import com.example.filder.databinding.ActivityDetailWorkerBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -96,7 +102,7 @@ public class DetailWorker extends AppCompatActivity {
             });
 
 
-            button_update.setOnClickListener(new View.OnClickListener() {
+            /*button_update.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // Get the values from the EditText fields
@@ -118,7 +124,65 @@ public class DetailWorker extends AppCompatActivity {
                     Toast.makeText(DetailWorker.this, "worker updated successfully", Toast.LENGTH_SHORT).show();
 
                 }
+            });*/
+
+
+            button_update.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Get the values from the EditText fields
+                    String name = worker_name.getText().toString();
+                    String newEmail = worker_email.getText().toString().replace(".", ",");
+                    String roleValue = role.getText().toString();
+                    String fieldValue = field.getText().toString();
+
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+
+                    // Get the reference of the current worker
+                    DatabaseReference workerRef = ref.child(bundle.getString("email_Worker").replace(".",","));
+
+                    workerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                // Get the worker data from the current node
+                                Object workerData = dataSnapshot.getValue();
+
+                                // Remove the old node
+                                workerRef.removeValue();
+
+                                // Create a new DatabaseReference with the desired reference (key)
+                                DatabaseReference newWorkerRef = ref.child(newEmail);
+
+                                // Set the worker data in the new node
+                                newWorkerRef.setValue(workerData);
+
+                                // Update the entered data in the new node
+                                newWorkerRef.child("name").setValue(name);
+                                newWorkerRef.child("email").setValue(newEmail);
+                                newWorkerRef.child("role").setValue(roleValue);
+                                newWorkerRef.child("field").setValue(fieldValue);
+
+
+                                // Show a success message to the user
+                                Toast.makeText(DetailWorker.this, "Worker updated successfully", Toast.LENGTH_SHORT).show();
+
+                                Intent intent_2 = new Intent(getApplicationContext(), Allworkers.class);
+                                startActivity(intent_2);
+                                finish();
+                            } else {
+                                Log.d(TAG, "User not found");
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.e(TAG, "onCancelled", databaseError.toException());
+                        }
+                    });
+                }
             });
+
 
 
             button_back.setOnClickListener(new View.OnClickListener() {
