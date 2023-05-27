@@ -78,29 +78,7 @@ public class MainActivity extends AppCompatActivity {
         main_page = findViewById(R.id.main_page);
         // Get a reference to the TableLayout
         tableLayout = findViewById(R.id.tableLayout);
-        TableRow row = new TableRow(MainActivity.this);
-        TextView column1 = new TextView(MainActivity.this);
-        column1.setText("Field");
-        column1.setGravity(Gravity.CENTER);
-        column1.setTypeface(null, Typeface.BOLD);
-        row.addView(column1);
-        TextView column2 = new TextView(MainActivity.this);
-        column2.setGravity(Gravity.CENTER);
-        column2.setText("Humidity");
-        column2.setTypeface(null, Typeface.BOLD);
-        row.addView(column2);
-        TextView column3 = new TextView(MainActivity.this);
-        column3.setGravity(Gravity.CENTER);
-        column3.setText("Temperature");
-        column3.setTypeface(null, Typeface.BOLD);
-        row.addView(column3);
-        TextView column4 = new TextView(MainActivity.this);
-        column4.setText("UV");
-        column4.setGravity(Gravity.CENTER);
-        column4.setTypeface(null, Typeface.BOLD);
-        row.addView(column4);
-        row.setPadding(0, 10, 0, 20);
-        tableLayout.addView(row);
+
 
         checkUser();
 
@@ -114,6 +92,31 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 // Clear the existing rows
                 tableLayout.removeAllViews();
+
+                TableRow row0 = new TableRow(MainActivity.this);
+                TextView column0 = new TextView(MainActivity.this);
+                column0.setText("Field");
+                column0.setGravity(Gravity.CENTER);
+                column0.setTypeface(null, Typeface.BOLD);
+                row0.addView(column0);
+                TextView column00 = new TextView(MainActivity.this);
+                column00.setGravity(Gravity.CENTER);
+                column00.setText("Humidity");
+                column00.setTypeface(null, Typeface.BOLD);
+                row0.addView(column00);
+                TextView column30 = new TextView(MainActivity.this);
+                column30.setGravity(Gravity.CENTER);
+                column30.setText("Temperature");
+                column30.setTypeface(null, Typeface.BOLD);
+                row0.addView(column30);
+                TextView column40 = new TextView(MainActivity.this);
+                column40.setText("Water Level");
+                column40.setGravity(Gravity.CENTER);
+                column40.setTypeface(null, Typeface.BOLD);
+                row0.addView(column40);
+                row0.setPadding(0, 10, 0, 20);
+                tableLayout.addView(row0);
+
                 entries_hum.clear();
                 entries_temp.clear();
                 entries_uv.clear();

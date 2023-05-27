@@ -57,6 +57,20 @@ public class Login extends AppCompatActivity {
     private ProgressBar progressBar;
 
     @Override
+    public void onBackPressed() {
+        SharedPreferences prefs = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE);
+        boolean isLoggedIn = prefs.getBoolean("isUserLoggedIn", false);
+        if (isLoggedIn) {
+            // Handle back navigation within the app
+            super.onBackPressed();
+        } else {
+            // Handle back navigation when logged out
+            startActivity(new Intent(this, welcome.class));
+            finish();
+        }
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
@@ -172,9 +186,9 @@ public class Login extends AppCompatActivity {
                     });
                 }
             }
+
+
         });
-
-
 
         signUpTextView.setOnClickListener(new View.OnClickListener() {
             @Override
