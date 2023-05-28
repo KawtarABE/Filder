@@ -115,11 +115,11 @@ public class detail_field extends AppCompatActivity {
 
             uv_1 = bundle.getString("UV");
             SpannableStringBuilder builder0 = new SpannableStringBuilder();
-            builder0.append("UV: ");
+            builder0.append("Water Level: ");
             SpannableString boldText0 = new SpannableString(uv_1);
             boldText0.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, uv_1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             builder0.append(boldText0);
-            builder0.append(" mW/m2");
+            builder0.append(" mm");
             uv.setText(builder0);
 
             numero = bundle.getString("numero");

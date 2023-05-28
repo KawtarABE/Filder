@@ -110,7 +110,7 @@ public class AdapterWorker extends RecyclerView.Adapter<AdapterWorker.HolderWork
             @Override
             public boolean onLongClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("Delete field");
+                builder.setTitle("Delete Worker");
                 builder.setMessage("Are you sure you want to delete this worker?");
                 builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override

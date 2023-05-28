@@ -1,5 +1,7 @@
 package com.example.filder;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -9,15 +11,16 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
-import com.example.filder.databinding.ActivityAllFieldsBinding;
-import com.example.filder.databinding.ActivityMainBinding;
+import com.example.filder.databinding.ActivityReceivedAlertsWorkerBinding;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,54 +29,35 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class All_fields extends AppCompatActivity {
-
+public class Received_alerts_worker extends AppCompatActivity {
     private ImageView menu;
-    private ActivityAllFieldsBinding binding;
     private DrawerLayout main_page;
     private String email;
     private Button button_add;
-    private ArrayList<ModelField> fieldsArrayList;
-    private AdapterField adapterField;
     private SearchView search;
+    private ActivityReceivedAlertsWorkerBinding binding;
+    private ArrayList<ModelAlert> alertsArrayList;
+    private AdapterAlert adapterAlert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_fields);
-
-        binding = ActivityAllFieldsBinding.inflate(getLayoutInflater());
+        setContentView(R.layout.activity_received_alerts_worker);
+        binding = ActivityReceivedAlertsWorkerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        SharedPreferences prefs = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE);
-        boolean isLoggedIn = prefs.getBoolean("isUserLoggedIn", false);
-        if(!isLoggedIn) {
-            startActivity(new Intent(this, welcome.class));
-            finish();
-        }
-
-        email = prefs.getString("user","");
-        binding.subtitle.setText(email);
 
         menu = findViewById(R.id.menu_button);
         main_page = findViewById(R.id.main_page);
 
         search = findViewById(R.id.search);
 
-        loadFields();
+        SharedPreferences prefs = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE);
+        email = prefs.getString("user","");
+        binding.subtitle.setText(email);
 
-        button_add = findViewById(R.id.add);
-
-        button_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), AddField.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
+        loadAlerts();
 
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,28 +88,17 @@ public class All_fields extends AppCompatActivity {
                         finish();
                         break;
 
-                    case R.id.nav_fields:
-                        break;
-
-                    case R.id.nav_workers:
-                        Intent intent_2 = new Intent(getApplicationContext(), Allworkers.class);
+                    case R.id.nav_worker:
+                        Intent intent_2 = new Intent(getApplicationContext(), Profil.class);
                         startActivity(intent_2);
                         finish();
                         break;
                     case R.id.nav_alertes:
-                        Intent intent_3 = new Intent(getApplicationContext(), AllAlerts.class);
-                        startActivity(intent_3);
+                        Intent intent_9 = new Intent(getApplicationContext(), AllAlerts_worker.class);
+                        startActivity(intent_9);
                         finish();
                         break;
                     case R.id.received_alertes:
-                        Intent intent_7 = new Intent(getApplicationContext(), Received_alerts.class);
-                        startActivity(intent_7);
-                        finish();
-                        break;
-                    case R.id.nav_electrovanne:
-                        Intent intent_4 = new Intent(getApplicationContext(), Electrovanne.class);
-                        startActivity(intent_4);
-                        finish();
                         break;
                 }
 
@@ -144,44 +117,65 @@ public class All_fields extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                ArrayList<ModelField> filteredContacts = new ArrayList<>();
-                for (ModelField field : fieldsArrayList) {
-                    if (field.getNumero().toLowerCase().contains(newText.toLowerCase())) {
-                        filteredContacts.add(field);
+                ArrayList<ModelAlert> filteredAlerts = new ArrayList<>();
+                for (ModelAlert alert : alertsArrayList) {
+                    if (alert.getContext().toLowerCase().contains(newText.toLowerCase()) ||
+                            alert.getText().toLowerCase().contains(newText.toLowerCase())) {
+                        filteredAlerts.add(alert);
                     }
                 }
 
-                adapterField.filterList(filteredContacts);
+                adapterAlert.filterList(filteredAlerts);
                 return true;
             }
         });
     }
 
-    private void loadFields() {
-        fieldsArrayList = new ArrayList<>();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Fields");
-        Query query = ref.orderByChild("manager").equalTo(email);
+
+
+    private void loadAlerts() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        Query query = ref.orderByChild("email").equalTo(email.replace(".",","));
+        List<String> fieldNumbers = new ArrayList<>();
         query.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                fieldsArrayList.clear();
-                for(DataSnapshot ds: snapshot.getChildren()) {
-                    ModelField model = ds.getValue(ModelField.class);
-                    fieldsArrayList.add(model);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String fieldNumber = snapshot.child("field").getValue(String.class);
+                    fieldNumbers.add(fieldNumber);
                 }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e(TAG, "onCancelled", databaseError.toException());
+            }
+        });
+        alertsArrayList = new ArrayList<>();
+        DatabaseReference ref_1 = FirebaseDatabase.getInstance().getReference("Alerts");
+        ref_1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                alertsArrayList.clear();
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    ModelAlert model = ds.getValue(ModelAlert.class);
+                    String fieldNumber = model.getField();
 
-
-                adapterField = new AdapterField(All_fields.this, fieldsArrayList);
-                binding.fields.setAdapter(adapterField);
+                    // Check if the fieldNumber is in the list
+                    if (fieldNumbers.contains(fieldNumber) && !model.getSender().equals(email)) {
+                        alertsArrayList.add(model);
+                    }
+                }
+                adapterAlert = new AdapterAlert(Received_alerts_worker.this, alertsArrayList);
+                binding.alerts.setAdapter(adapterAlert);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.w(TAG, "loadAlert:onCancelled", error.toException());
             }
         });
-    }
 
+    }
 
 
 }
