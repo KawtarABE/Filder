@@ -3,10 +3,7 @@ Fielder 2.0 is a cutting-edge project that addresses the challenges faced by fie
 
 ## Table of Contents
 * [General Information](#general-information)
-* [Technologies Used](#technologies-used)
-* [Features](#features)
 * [Setup](#setup)
-* [Usage](#usage)
 * [Screenshots](#screenshots)
 
 
@@ -23,49 +20,29 @@ The project architecture is logically divided into three main layers:
 - Processes collected data before storing it in the database.
 - Utilizes Firebase API to send formatted data to Firebase.
 
-<img src="Screenshots/arch.png" width="200px">
+<img src="Screenshots/arch.png" width="500px">
 
 This github repository contains the code of the android application
 
-## Technologies Used
-[![PHP](https://skillicons.dev/icons?i=php,html,css,js,mysql)](https://skillicons.dev)
+### Technologies Used
+[![PHP](https://skillicons.dev/icons?i=androidstudio,firebase)](https://skillicons.dev)
 
-
-
-## Main Features
-### Admin Panel:
-- Manage patient/doctor accounts.
-- Manage diseases/categories defined in the platform.
-- Manage consultations.
-
-### Doctor Dashboard:
-- View and Respond to different consultations by category.
-- View the profile and various diseases of patients who have submitted consultations.
-- View the history of consultations they have responded to and modify responses.
-
-### Patient Interface:
-- View public questions from other patients and the responses from doctors.
-- Add a consultation and track responses.
+### Main Features
+#### 1. For Manager:
+- View field indicators (temperature, humidity, water level) numerically and graphically.
+- Manage (add, modify, consult) static field data.
+- View recommendations for each field.
+- Manage (add, modify, consult, delete) worker data.
+- View and generate alerts.
+- Control (turn on, turn off) the solenoid valve.
+#### 1. For workers:
+- View field indicators (temperature, humidity, water level).
+- View static field data.
+- Manage their profile.
+- View and generate alerts.
 
 
 ## Setup
-### Pre-Requisites
-To set up this project you should install the following:
-- XAMPP (apache, mysql)
-- VSCODE (or any other IDE)
-
-### Usage
-To use the project you should do the following:
-- Add the project to **'htdocs'** folder on the xampp environment.
-- Create the database on phpmyadmin panel.
-  * patients(**`id`**, **`email`**, **`password`**, **`first_name`**, **`last_name`**, **`sexe`**, **`date_of_birth`**)
-  * maladies(**`id_maladie`**, **`name_of_maladie`**)
-  * cathegories(**`id_cathegory`**, **`name_of_cathegory`**)
-  * patient_maladie(**`id_patient`**, **`id_maladie`**)
-  * forum(**`id`**, **`Description`**, **`Post`**, **`patient`**, **`id_categorie`**, **`statut`**, **`type`**)
-  * answers(**`id_consultation`**, **`id_doctor`**, **`answer`**)
-  * admins(**`id_admin`**, **`email`**, **`password`**, **`first_name`**, **`last_name`**)
-  * doctors(**`id_doctor`**, **`email`**, **`password`**, **`first_name`**, **`last_name`**, **`sexe`**, **`id_cathegory`**)
 
 ## Screenshots
 ### Home Page
