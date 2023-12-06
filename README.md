@@ -11,7 +11,6 @@ Fielder 2.0 is a cutting-edge project that addresses the challenges faced by fie
 
 
 ## General Information
-<img src="" width="">
 ### Architecture of the project
 The project architecture is logically divided into three main layers:
 #### Presentation Layer : Android application
@@ -23,6 +22,8 @@ The project architecture is logically divided into three main layers:
 #### Control Layer : Raspberry
 - Processes collected data before storing it in the database.
 - Utilizes Firebase API to send formatted data to Firebase.
+
+<img src="" width="">
 
 This github repository contains the code of the android application
 
