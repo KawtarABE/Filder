@@ -45,11 +45,12 @@ This github repository contains the code of the android application
 ## Setup
 
 ## Screenshots
-### Home Page
-![Example screenshot](Screenshots/home.png)
-### Admin dashboard 
-![Example screenshot](Screenshots/Dashboard.png)
-### Blog page
-![Example screenshot](Screenshots/Blog.png)
-### Consultations page
-![Example screenshot](Screenshots/consultations.png)
+<p align="center">
+  <img src="/Screenshots/1.jpg" width="200" />
+  <img src="/Screenshots/2.jpg" width="200" />
+  <img src="/Screenshots/3.jpg" width="200" />
+  <img src="/Screenshots/4.jpg" width="200" />
+  <img src="/Screenshots/5.jpg" width="200" />
+  <img src="/Screenshots/6.jpg" width="200" />
+  <img src="/Screenshots/7.jpg" width="200" />
+</p>
