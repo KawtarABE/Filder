@@ -13,13 +13,13 @@ Fielder 2.0 is a cutting-edge project that addresses the challenges faced by fie
 ## General Information
 ### Architecture of the project
 The project architecture is logically divided into three main layers:
-#### Presentation Layer : Android application
+#### 1. Presentation Layer : Android application
 - Interface for user interaction, command issuance, and data visualization.
 - Controls the state of the solenoid valve for remote irrigation.
-#### Data Access Layer : Sensors
+#### 2. Data Access Layer : Sensors
 - Collects data from field sensors (humidity, temperature, water level) using ESP32.
 - Uses MQTT to transmit data reliably and securely to the Raspberry Pi.
-#### Control Layer : Raspberry
+#### 3. Control Layer : Raspberry
 - Processes collected data before storing it in the database.
 - Utilizes Firebase API to send formatted data to Firebase.
 
