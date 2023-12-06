@@ -43,7 +43,9 @@ This github repository contains the code of the android application
 
 
 ## Setup
-
+- Clone the repository git clone `https://github.com/your-username/Filder.git`
+- Open the project in Android Studio.
+- Build and run the project on your Android device or emulator.
 ## Screenshots
 <p align="center">
   <img src="/Screenshots/1.jpg" width="200" />
@@ -53,4 +55,7 @@ This github repository contains the code of the android application
   <img src="/Screenshots/5.jpg" width="200" />
   <img src="/Screenshots/6.jpg" width="200" />
   <img src="/Screenshots/7.jpg" width="200" />
+  <img src="/Screenshots/8.jpg" width="200" />
+  <img src="/Screenshots/9.jpg" width="200" />
+  <img src="/Screenshots/10.jpg" width="200" />
 </p>
