@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +23,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
 
+import org.json.JSONObject;
+
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class AdapterField extends RecyclerView.Adapter<AdapterField.HolderField> {
     private Context context;
@@ -43,6 +54,108 @@ public class AdapterField extends RecyclerView.Adapter<AdapterField.HolderField>
         binding = RowFieldBinding.inflate(LayoutInflater.from(context), parent, false);
 
         return new HolderField(binding.getRoot());
+    }
+
+    public String product_recommandation(String temp, String hum){
+        String result = "";
+        try {
+            URL url;
+            HttpURLConnection urlConnection = null;
+            try {
+                // Création de l'objet JSON
+                MyData mydata = new MyData(Float.parseFloat(temp), Float.parseFloat(hum));
+
+                // Conversion de l'objet JSON en chaîne JSON
+                Gson gson = new Gson();
+                String requestBody = gson.toJson(mydata);
+                //Log.w("resultat", "============ "+requestBody);
+
+
+                url = new URL("https://pfa-model-api.onrender.com/teste");
+                //open a URL coonnection
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("POST");
+
+                // Activation de l'envoi de données
+                urlConnection.setDoOutput(true);
+
+                // Ajout de l'en-tête Content-Type approprié
+                urlConnection.setRequestProperty("Content-Type", "application/json");
+
+                // Création du flux de sortie pour écrire le corps de la requête
+                DataOutputStream outputStream = new DataOutputStream(urlConnection.getOutputStream());
+
+                // Écriture de la chaîne JSON dans le flux de sortie
+                outputStream.writeBytes(requestBody);
+
+                // Fermeture du flux de sortie
+                outputStream.close();
+
+                // Envoi de la requête et récupération de la réponse
+               // int responseCode = urlConnection.getResponseCode();
+                //Log.w("resultat", "============ "+responseCode);
+                //if (responseCode == HttpURLConnection.HTTP_OK) {
+
+                    InputStream in = urlConnection.getInputStream();
+                    InputStreamReader isw = new InputStreamReader(in);
+
+                    int data = isw.read();
+                    while (data != -1) {
+                        result += (char) data;
+                        data = isw.read();
+                    }
+
+                    JSONObject jsonObject = new JSONObject(result);
+                    String value = jsonObject.getString("data");
+
+                    Log.w("resultat", "============ "+value);
+
+                    return value;
+               // }
+
+                // return the data to onPostExecute method
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Exception: " + e.getMessage();
+        }
+        return result;
+    }
+
+    public static class MyData {
+        private Float temperature;
+        private Float humidity;
+
+        public MyData(Float temperature, Float humidity) {
+            this.temperature = temperature;
+            this.humidity = humidity;
+        }
+
+        // Getters and setters
+
+        public Float getTemperature() {
+            return this.temperature;
+        }
+
+        public void setTemperature(Float temperature) {
+            this.temperature = temperature;
+        }
+
+        public Float getHumidity() {
+            return this.humidity;
+        }
+
+        public void setHumidity(Float humidity) {
+            this.humidity = humidity;
+        }
+
     }
 
     public void onBindViewHolder(@NonNull AdapterField.HolderField holder, int position) {
@@ -71,6 +184,9 @@ public class AdapterField extends RecyclerView.Adapter<AdapterField.HolderField>
                 intent.putExtra("humidity", fieldsArrayList.get(holder.getAdapterPosition()).getHumidity());
                 intent.putExtra("temperature", fieldsArrayList.get(holder.getAdapterPosition()).getTemperature());
                 intent.putExtra("UV", fieldsArrayList.get(holder.getAdapterPosition()).getUV());
+
+              //  String product = product_recommandation(fieldsArrayList.get(holder.getAdapterPosition()).getTemperature(),fieldsArrayList.get(holder.getAdapterPosition()).getHumidity());
+
                 context.startActivity(intent);
             }
         });
